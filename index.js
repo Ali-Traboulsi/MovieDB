@@ -4,6 +4,15 @@
  const sec = date.getSeconds();
  const time = hour + ':' + sec;
 
+//create array of movies
+const movies = [
+    { title: 'Jaws', year: 1975, rating: 8 },
+    { title: 'Avatar', year: 2009, rating: 7.8 },
+    { title: 'Brazil', year: 1985, rating: 8 },
+    { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 }
+];
+
+
  const app = express();
 
  const PORT = 8080;
@@ -67,6 +76,24 @@ app.get('/search', (req, res) => {
     }
 });
 
+app.get('/movies/add', (req, res) => {
+
+});
+
+app.get('/movies/get', (req, res) => {
+    res.send({
+        status: 200,
+        data: movies
+    })
+});
+
+app.get('/movies/edit', (req, res) => {
+
+});
+
+app.get('/movies/delete', (req, res) => {
+
+});
 
  app.use((req, res) => {
      res.type('text/plain');
