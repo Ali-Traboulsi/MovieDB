@@ -76,9 +76,6 @@ app.get('/search', (req, res) => {
     }
 });
 
-app.get('/movies/add', (req, res) => {
-
-});
 
 app.get('/movies/get', (req, res) => {
     res.send({
@@ -109,7 +106,7 @@ app.get('/movies/get/by-rating', (req, res) => {
         status: 200,
         data: ratedMovies
     })
-})
+});
 
 app.get('/movies/get/by-title', (req, res) => {
     let titledMovies = movies;
@@ -123,7 +120,7 @@ app.get('/movies/get/by-title', (req, res) => {
         status: 200,
         data: titledMovies
     })
-})
+});
 
 app.get('/movies/get/id/:movieID', (req, res) => {
     if (req.params.movieID <= movies.length -1){
@@ -140,6 +137,35 @@ app.get('/movies/get/id/:movieID', (req, res) => {
         })
     }
 });
+
+app.get('/movies/add', (req, res) => {
+    let movieTitle = req.query.title;
+    let movieYear = parseInt(req.query.year);
+    let movieRating = parseInt(req.query.rating);
+
+    if(movieRating < 4 ){ movieRating = 4; }
+
+    if (movieTitle == "" || isNaN(movieYear) ){
+        res.send({
+            status: 403,
+            error: true,
+            message: 'you cannot create a movie without providing a title and a year'
+        })
+    }
+
+    else{
+        movies.push({
+            title: movieTitle,
+            year: movieYear,
+            rating: movieRating
+        });
+        res.send({
+            status: 200,
+            data: movies
+        });
+    }        
+});
+
 
 
 app.get('/movies/edit', (req, res) => {
