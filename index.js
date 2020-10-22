@@ -143,7 +143,7 @@ app.get('/movies/add', (req, res) => {
     let movieYear = parseInt(req.query.year);
     let movieRating = parseInt(req.query.rating);
 
-    if(movieRating < 4 ){ movieRating = 4; }
+    if (!movieRating){ movieRating = 4; }
 
     if (movieTitle == "" || isNaN(movieYear) ){
         res.send({
