@@ -125,9 +125,25 @@ app.get('/movies/get/by-title', (req, res) => {
     })
 })
 
+app.get('/movies/get/id/:movieID', (req, res) => {
+    if (req.params.movieID <= movies.length -1){
+        res.send({
+            status: 200,
+            data: movies[req.params.movieID]
+        });        
+    }
+    else {
+        res.send({
+            status: 404,
+            error: true,
+            message: 'the movie with id: ' + req.params.movieID + ' do not exist'
+        })
+    }
+});
+
 
 app.get('/movies/edit', (req, res) => {
-
+    
 });
 
 app.get('/movies/delete', (req, res) => {
