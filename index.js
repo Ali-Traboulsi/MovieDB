@@ -1,4 +1,5 @@
- const express = require('express');
+ const { query } = require('express');
+const express = require('express');
  const date = new Date(Date.now());
  const hour = date.getHours();
  const sec = date.getSeconds();
@@ -168,8 +169,25 @@ app.get('/movies/add', (req, res) => {
 
 
 
-app.get('/movies/edit', (req, res) => {
-    
+app.get('/movies/edit/:movieID', (req, res) => {
+    let editedMovies = [...movies];
+    for (let i = 0; i < editedMovies.length; i++){
+        if (req.params.movieID == editedMovies[i].title){
+            if (req.query.title){ editedMovies[i].title = req.query.title; }
+            if (req.query.rating){ editedMovies[i].rating = parseInt(req.query.rating); }
+            if (req.query.year){ editedMovies[i].year = parseInt(req.query.year); }
+
+            res.send({
+                status: 200,
+                data: editedMovies
+            })
+        }
+    }
+    res.send({
+        status: 404,
+        error: true,
+        message: 'the movie with id: ' + req.params.movieID + ' does not exist'
+    })
 });
 
 app.get('/movies/delete/:movieID', (req, res) => {
