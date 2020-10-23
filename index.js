@@ -172,8 +172,22 @@ app.get('/movies/edit', (req, res) => {
     
 });
 
-app.get('/movies/delete', (req, res) => {
-
+app.get('/movies/delete/:movieID', (req, res) => {
+    let newMovies = movies;
+    for (let i = 0; i < movies.length; i++){
+        if (req.params.movieID == newMovies[i].title) {
+            newMovies.splice(i, 1);
+            res.send({
+                status: 200,
+                data: newMovies
+            });
+        }
+    }
+    res.send({
+        status: 404,
+        error: true,
+        message: 'the movie with id: ' + req.params.movieID + ' does not exist'
+    })
 });
 
  app.use((req, res) => {
